@@ -1,7 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import OAuth from '../components/OAuth';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ function SignUp() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const{currentUser}=useSelector((state) => state.user);
+    const { currentUser } = useSelector((state) => state.user);
 
     // useEffect(()=>{
     //     if(currentUser){
@@ -21,9 +21,16 @@ function SignUp() {
     //     }
     // },[])
 
+    const validateEmail = (email) => {
+        const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+        return gmailRegex.test(email);
+    };
     const handleSignup = async () => {
         if (!name || !email || !password) {
             return setError("Please fill out all fields")
+        }
+        if (!validateEmail(email)) {
+            return setError("Please enter a valid Gmail address");
         }
         try {
 
@@ -47,7 +54,7 @@ function SignUp() {
                 setError(res.message);
                 setLoading(false);
             }
-            if(res.username){
+            if (res.username) {
                 navigate('/signin')
             }
 
@@ -62,8 +69,8 @@ function SignUp() {
         <div className='min-h-screen flex flex-col md:flex-row items-center justify-center gap-10 max-w-5xl mx-auto'>
             <div className='flex flex-col gap-4 p-3 text-center'>
                 <Link to='/' className='font-bold text-4xl'>
-                    <span className='px-2 mr-1 py-1 bg-gradient-to-r from-indigo-700 via-purple-500 to-pink-500 rounded-md shadow-md text-white'>Random</span>
-                    Blogs
+                    <span className='px-2 italic  mr-1 py-1 bg-gradient-to-r  from-green-400 via-blue-500 to-indigo-500  rounded-md shadow-md text-white font-extrabold'>Byte</span>
+                    <span className='font-extrabold italic'>Insights</span>
                 </Link>
                 <div className='text-lg'>Sign up with your email and password or with Google.</div>
             </div>
@@ -109,7 +116,7 @@ function SignUp() {
 
 
                 </Button>
-                <OAuth/>
+                <OAuth />
                 <div>Have an account? <span>
                     <Link to='/signin' className='text-blue-600'>SignIn</Link>
                 </span></div>

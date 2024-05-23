@@ -55,7 +55,7 @@ function News() {
               {article.urlToImage ? (
                 <img src={article.urlToImage} className="news-img" alt={article.title} />
               ) : (
-                <div className="news-img-placeholder">Image Not Available</div>
+                <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmV3c3xlbnwwfHwwfHx8MA%3D%3D" className="news-img" alt={article.title} />
               )}
               <div className="news-details">
                 <h2 className="news-title">{article.title}</h2>
