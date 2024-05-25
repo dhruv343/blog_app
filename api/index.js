@@ -7,17 +7,30 @@ import cors from "cors"
 import postRoute from "./routes/post.route.mjs"
 import newsRoute from "./routes/news.route.mjs"
 import commentRoute from "./routes/comment.route.mjs"
+import path from 'path'
+
+
 const app=express();
 app.use(express.json())
 dotenv.config()
 app.use(cors());
 mongoose.connect(process.env.MONGO)
 
+const __dirname=path.resolve();
+
+
+
 app.use("/api/test",userRoute);
 app.use("/api/user",authRoute);
 app.use("/api/create",postRoute)
 app.use("/api/tech",newsRoute)
 app.use("/api/comment",commentRoute)
+
+app.use(express.static(path.join(__dirname,'/blog_app/dist')));
+
+app.get('*',(req,res)=>{
+   res.sendFile(path.join(__dirname,'blog_app','dist','index.html')) 
+})
 
 //middleware
 app.use((err,req,res,next)=>{
